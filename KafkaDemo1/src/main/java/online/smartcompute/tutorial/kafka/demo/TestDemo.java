@@ -1,4 +1,4 @@
-package online.smartcompute.test.tutorial.kafka;
+package online.smartcompute.tutorial.kafka.demo;
 
 public class TestDemo {
 	
