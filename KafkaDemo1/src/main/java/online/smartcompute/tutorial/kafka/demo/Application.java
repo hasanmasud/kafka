@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan(basePackages = "online.smartcompute.test.tutorial.kafka")
+@ComponentScan(basePackages = "online.smartcompute.tutorial.kafka.demo")
 public class Application {
 
 	public static void main(String[] args) {
