@@ -1,7 +1,11 @@
 package online.smartcompute.tutorial.kafka.demo;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,10 @@ public class Application {
 	@Autowired
 	private KafkaProducer<String, String> producer;
 
+	@Autowired
+	private KafkaConsumer<String, String> consumer;
+	
+	
 	private void start() {
 		Thread t1 = new Thread(new Runnable() {
 			public void run() {
@@ -41,6 +49,21 @@ public class Application {
 			}
 		});
 		t1.start();
+		
+		
+		
+		Thread t2 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				 consumer.subscribe(Arrays.asList("topic1"));
+				 while(true){
+					 ConsumerRecords<String, String> records =	consumer.poll(100); 
+					 for(ConsumerRecord<String,String> record : records){
+						 	System.out.println("offset : " + record.offset() + " key : " + record.key()  + " value : " + record.value());
+					 }
+				 }
+			}
+		});
+		t2.start();
 	}
-
 }
