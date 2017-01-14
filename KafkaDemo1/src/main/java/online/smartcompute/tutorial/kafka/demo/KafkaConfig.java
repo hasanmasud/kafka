@@ -1,6 +1,5 @@
 package online.smartcompute.tutorial.kafka.demo;
 
-import java.util.Arrays;
 import java.util.Properties;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;

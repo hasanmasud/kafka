@@ -15,14 +15,15 @@ import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan(basePackages = "online.smartcompute.tutorial.kafka.demo")
 public class Application {
-
+	
 	public static void main(String[] args) {
+		ApplicationContext context = null;
 		try {
-			ApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
+			context = new AnnotationConfigApplicationContext(Application.class);
 			Application p = context.getBean(Application.class);
 			p.start();
 		} finally {
-			//TODO
+			//((AnnotationConfigApplicationContext)context).close();
 		}
 	}
 
@@ -31,7 +32,6 @@ public class Application {
 
 	@Autowired
 	private KafkaConsumer<String, String> consumer;
-	
 	
 	private void start() {
 		Thread t1 = new Thread(new Runnable() {
