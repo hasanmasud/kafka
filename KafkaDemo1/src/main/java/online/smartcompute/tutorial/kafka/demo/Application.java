@@ -33,7 +33,7 @@ public class Application {
 	@Autowired
 	private KafkaConsumer<String, String> consumer;
 	
-	private static String TOPIC_NAME = "my-replicated-topic"; 
+	private static final String TOPIC_NAME = "my-replicated-topic"; 
 	
 	private void start() {
 		Thread t1 = new Thread(new Runnable() {
