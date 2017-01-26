@@ -33,12 +33,14 @@ public class Application {
 	@Autowired
 	private KafkaConsumer<String, String> consumer;
 	
+	private static String TOPIC_NAME = "my-replicated-topic"; 
+	
 	private void start() {
 		Thread t1 = new Thread(new Runnable() {
 			public void run() {
 				Integer i = 0;
 				while (true) {
-					producer.send(new ProducerRecord<String, String>("topic1", Integer.toString(i),"Hello from Masud at " + Calendar.getInstance().getTime()));
+					producer.send(new ProducerRecord<String, String>(TOPIC_NAME, Integer.toString(i),"Hello from Masud at " + Calendar.getInstance().getTime()));
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
@@ -50,12 +52,13 @@ public class Application {
 		});
 		t1.start();
 		
-		
-		
 		Thread t2 = new Thread(new Runnable() {
-			@Override
+			/*
+			 * (non-Javadoc)
+			 * @see java.lang.Runnable#run()
+			 */
 			public void run() {
-				 consumer.subscribe(Arrays.asList("topic1"));
+				 consumer.subscribe(Arrays.asList(TOPIC_NAME));
 				 while(true){
 					 ConsumerRecords<String, String> records =	consumer.poll(100); 
 					 for(ConsumerRecord<String,String> record : records){
@@ -63,6 +66,7 @@ public class Application {
 					 }
 				 }
 			}
+			
 		});
 		t2.start();
 	}
